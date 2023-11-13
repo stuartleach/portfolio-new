@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* using a plain .css file, as SCSS files appear to have issues 
+working consistently with Tailwind imports */
+
+html {
+  background-color: #242424;
+  color: #ffffffde;
+}

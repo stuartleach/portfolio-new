@@ -1,0 +1,12 @@
+{
+  "extends": "tsconfig/base.json",
+
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM"],
+
+    "baseUrl": "ui-utils"
+  },
+  "include": ["ui-utils", "src/Button.tsx"],
+  "exclude": ["dist", "build", "node_modules"]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "server",
+  "version": "10.2.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && pnpm run prisma-gen",
+    "dev": "dotenv -e ../../.env.shared.local -e ../../.env.server.local -- tsx watch src",
+    "start": "pnpm run prisma-migrate:prod && node dist/services/server/src/index.js",
+    "prisma-cli": "../../node_modules/.bin/dotenv -e ../../.env.server.local -- prisma",
+    "prisma-gen": "prisma generate --schema ./prisma/schema.prisma",
+    "prisma-reset:dev": "pnpm run prisma-cli migrate reset",
+    "prisma-migrate:dev": "pnpm run prisma-cli migrate dev",
+    "prisma-migrate:prod": "prisma migrate deploy",
+    "db-shell:dev": "../../repo_scripts/local_db_shell.sh",
+    "prisma-init:dev": "../../repo_scripts/prisma_init.sh",
+    "//test-dev": "start-server-and-test 'tsx src' http-get://localhost:2022 'tsx src/client'",
+    "//test-start": "start-server-and-test 'node dist/server' http-get://localhost:2022 'node dist/client'"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.3.0",
+    "@fastify/middie": "^8.3.0",
+    "@prisma/client": "^5.1.1",
+    "@trpc/client": "^10.37.1",
+    "@trpc/server": "^10.37.1",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.5.1",
+    "abort-controller": "^3.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fast-jwt": "^3.2.0",
+    "fastify": "^4.21.0",
+    "google-auth-library": "^9.0.0",
+    "jose": "^4.14.4",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.11.3",
+    "prisma": "^5.1.1",
+    "reflect-metadata": "^0.1.13",
+    "tsc-alias": "^1.8.7",
+    "tsconfig": "workspace:*",
+    "tslib": "^2.6.2",
+    "typeorm": "^0.3.17",
+    "utilities": "workspace:*",
+    "ws": "^8.13.0",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.4",
+    "@types/ws": "^8.5.5",
+    "npm-run-all": "^4.1.5",
+    "start-server-and-test": "^2.0.0",
+    "tsx": "^3.12.7",
+    "wait-port": "^1.0.4"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
+  }
+}

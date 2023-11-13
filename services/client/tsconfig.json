@@ -1,0 +1,25 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "esModuleInterop": false,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@client/*": ["./src/*"],
+      "@server/*": ["../server/src/*"],
+      "@ui/*": ["../../packages/ui/src/*"],
+      "@utilities/*": ["../../packages/utilities/src/*"]
+    },
+    "rootDir": "../../"
+  },
+  "include": [
+    "./src",
+    "../server/src",
+    "../../packages/utilities/src",
+    "../../packages/ui/src"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

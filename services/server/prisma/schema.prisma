@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AppUser {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique @db.VarChar(255)
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  google_user_id String   @unique @db.VarChar(255)
+  updated_at     DateTime @updatedAt @db.Timestamptz(6)
+  notes          Note[]
+
+  // @@map used to translate between postgres and prisma naming conventions.
+  // 'user' is a reserved keyword in postgres.
+  @@map("app_user")
+}
+
+model Note {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  content    String   @default("")
+  user_id    Int
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  user       AppUser  @relation(fields: [user_id], references: [id])
+  tags       Tag[]
+
+  @@map("note")
+}
+
+model Tag {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  notes      Note[]
+
+  @@map("tag")
+}

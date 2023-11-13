@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "module": "ES2015",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./config-dist"
+  },
+  "include": ["vite.config.ts"]
+}

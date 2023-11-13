@@ -1,0 +1,9 @@
+{
+  "name": "utilities",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@types/node": "^20.5.1",
+    "tsconfig": "workspace:*"
+  }
+}

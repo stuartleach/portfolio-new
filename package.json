@@ -1,0 +1,51 @@
+{
+  "name": "fullstack-typescript-starter",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "build-client:prod": "./repo_scripts/build_service.sh client",
+    "build-server:prod": "./repo_scripts/build_service.sh server",
+    "start-server:prod": "pnpm run --filter server start",
+    "prisma-gen": "pnpm run --filter server prisma-gen",
+    "start:dev": "docker-compose up -d && pnpm run prisma-migrate:dev &&  pnpm run --if-present --parallel dev",
+    "lint": "eslint --fix --ignore-path=.gitignore \"**/*.{ts,tsx,js,jsx}\"",
+    "prepare": "[ -n \"$CI\" ] || husky install",
+    "reset-node-modules": "rm -rf node_modules */**/node_modules && rm pnpm-lock.yaml && pnpm i",
+    "db-shell:dev": "pnpm run --filter server db-shell:dev",
+    "drop-db:dev": "docker-compose down -v",
+    "prisma-cli": "pnpm run --filter server --silent prisma-cli",
+    "prisma-migrate:dev": "pnpm run --filter server prisma-migrate:dev",
+    "prisma-reset:dev": "pnpm run --filter server prisma-reset:dev",
+    "prisma-init:dev": "pnpm run --filter server --silent prisma-init:dev",
+    "typecheck": "tsc --project services/client/tsconfig.json --noEmit && tsc --project services/server/tsconfig.json --noEmit",
+    "upgrade-all-packages": "pnpm up --latest -r !react-router !react-router-dom !history !vite-tsconfig-paths"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.47.0",
+    "eslint-config-shared": "workspace:*",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.37.1",
+    "dotenv-cli": "^7.3.0",
+    "husky": "^8.0.3",
+    "prettier": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "history": "^4.10.1",
+      "react-router": "^5.2.1",
+      "react-router-dom": "^5.2.1"
+    }
+  }
+}
